@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Markdown Editor</title>
+  <script src="static/js/marked.js"></script>
+  <script src="static/js/highlight.pack.js"></script>
+  <script src="static/codemirror/codemirror.js"></script>
+  <script src="static/codemirror/markdown.js"></script>
+  <script src="static/codemirror/javascript.js"></script>
+
+  <script src="static/jquery/jquery-1.11.1.min.js"></script>
+  <script src="static/jquery/dialog-min.js"></script>
+
+  <link rel="stylesheet" href="static/jquery/ui-dialog.css">
+
+  <link rel="stylesheet" href="static/codemirror/codemirror.css">
+  <link rel="stylesheet" href="static/css/default.css">
+  <link rel="stylesheet" href="static/css/style.css">
+
+</head>
+<body>
+  <div id="in">
+    <form>
+      <textarea id="code">
+@@@
+
+@author:jack.zh
+
+@title:Readme title
+
+@target:markdown
+
+@floder:editor
+
+@url:http://example.com/newblog
+
+@publish:true
+
+@@@
+
+# This is zMarkDown Editor
+
+### 1. This is:
+
+  + Power by [markdown-editor](https://github.com/jbt/markdown-editor)
+  + Simplification
+  + `Ctrl + S` will post the code to url which you set in header
+  + `Ctrl + B` show all attachments
+  + `Ctrl + Delete` clear localStorage
+  + Between `@@@` is set message
+    + url: post url
+    + other: argument set
+
+### 2. Argument example:
+
+```
+@@@
+ 
+@author:jack.zh
+
+@title:Readme title
+
+@target:markdown
+
+@floder:editor
+
+@url:http://example.com/newblog
+
+@publish:true
+
+@@@
+```
+
+The post code whill be(use JSONP and callback=jsonpcallback):
+
+```javascript
+$.ajax({
+  url: "http://example.com/newblog",
+  dataType: 'jsonp',
+  jsonp: "jsonpcallback",
+  data: data,
+  async: false
+});
+```
+data:
+```javascript
+{
+  author: "jack.zh", 
+  title: "Readme title", 
+  target: "markdown", 
+  floder:"editor", 
+  publish: "true",
+  makedown_str: "...", // without @@@ plus
+  code: "..." // all edit code
+}
+
+```
+
+### 3. Show-how
+
+##### 1. edit markdown
+
+![edit markdown](static/readme/zmade.gif)
+
+##### 2. set url and started server
+
+![edit markdown](static/readme/zmade1.gif)
+
+##### 3. Save show(keycode: `Ctrl + S`)
+
+![edit markdown](static/readme/zmade2.gif)
+
+
+### 4. Markdown Example:
+
+code style:
+
+```go
+
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hello, 世界")
+}
+
+```
+
+table:
+
+
+| Item      |    Value | Qty  |
+| :-------- | --------:| :--: |
+| Computer  | 1600 USD |  5   |
+| Phone     |   12 USD |  12  |
+| Pipe      |    1 USD | 234  |
+
+
+Enjoy it!   
+        
+      </textarea>
+    </form>
+  </div>
+  <div id="out"></div>
+
+  <div id="dialog-modal" title="Basic modal dialog" style="display: none;" class="dialog-class"></div>
+
+  <script src="static/js/editor.js"></script>
+</body>
+</html>
